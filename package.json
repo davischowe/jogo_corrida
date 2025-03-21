@@ -1,0 +1,23 @@
+{
+  "name": "jogo_corrida_2",
+  "version": "0.0.1",
+  "description": "",
+  "main": "formula1_class.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davischowe/jogo_corrida.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "Node.js"
+  ],
+  "author": "Davi Schoenardie de Almeida",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davischowe/jogo_corrida/issues"
+  },
+  "homepage": "https://github.com/davischowe/jogo_corrida#readme"
+}
