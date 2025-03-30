@@ -1,10 +1,11 @@
 class Obj{
-    constructor(x,y,w,h,a){
+    constructor(x,y,w,h,a,){
         this.x = x
         this.y = y
         this.w = w
         this.h = h
         this.a = a
+        this.pontuacao = false
     }
     des_obj(){
         des.fillStyle = this.a
@@ -18,6 +19,7 @@ class Carro extends Obj{
     vida = 5
     frame = 1
     tempo = 0
+    velocidade = 0
 
     des_car_img(){
         let img = new Image()
@@ -48,12 +50,16 @@ class Carro extends Obj{
         }
     }
 
-    point(objeto){
-        if((objeto.y>=680)&&(objeto.y <= 684)){
-            return true
+    point(objeto) {
+        if (!objeto.pontuacao && objeto.y >= 680 && objeto.y <= 700) {
+            objeto.pontuacao = true;
+            return true;
         }
-        return false
-
+        if (objeto.y > 700) {
+            objeto.pontuacao = false;
+        }
+    
+        return false;
     }
     
     colid(objeto){
@@ -70,17 +76,56 @@ class Carro extends Obj{
 
 class Carro2 extends Carro{
     mov_carro2(){
-        this.y += 6
+        this.y += 6 + this.velocidade
         if(this.y >= 1000){
             this.recomeca()
         }
     }
     
     recomeca(){
-        this.y = -170
-        this.x = Math.floor(Math.random() * (450 - 10) + 2);
+        this.y = -100
+        this.x = Math.floor(Math.random() * ((416 - 2 + 1) + 2));
     }
 }
+class Carro3 extends Carro{
+    mov_carro3(){
+        this.y += 0 + this.velocidade
+        if(this.y >= 1000){
+            this.recomeca()
+        }
+    }
+    
+    recomeca(){
+        this.y = -100
+        this.x = Math.floor(Math.random() * ((416 - 2 + 1) + 2));
+    }
+}
+class Obs1 extends Carro{
+    mov_Obs1(){
+        this.y += 0 + this.velocidade
+        if(this.y >= 1000){
+            this.recomeca()
+        }
+    }
+    
+    recomeca(){
+        this.y = -100
+        this.x = Math.floor(Math.random() * ((416 - 2 + 1) + 2));
+    }
+    anim(nome){
+        this.tempo +=1
+        if(this.tempo > 12){
+            this.tempo = 0
+            this.frame +=1
+        }
+        if(this.frame>4){
+            this.frame=1
+        }
+        this.a = "assets/"+nome+ this.frame + ".png"
+    }
+}
+
+
 
 // class Estrada extends Obj{
 //     des_estrada(){

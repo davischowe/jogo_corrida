@@ -42,3 +42,24 @@ canvas{
     right: 0;
     border-radius: 10px;
 }
+#sobre{
+    background-color: blueviolet;
+    padding: 5px;
+    position: absolute;
+    top: 320px;
+    right: 1190px;
+    left: 160px;
+    bottom: 10px;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 20px;
+    margin-left: 5px;
+    text-align: center;
+    
+}
+b{
+    text-decoration: underline;
+}
+
