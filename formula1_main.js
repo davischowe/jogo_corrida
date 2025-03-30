@@ -1,132 +1,220 @@
-let des = document.getElementById('des').getContext('2d')
+let des = document.getElementById('des').getContext('2d');
 
-let c1 = new Carro(225,450,50,80,'darkblue')
-let carro = new Carro(225,600,45,100,'./assets/carro_01.png')
-// let c2 = new Carro2(400,-40,50,80,'orange')
-let c2 = new Carro2(400,-40,45,100,'./assets/carro_02.png')
-// let c3 = new Carro2(200,-280,50,80,'red')
-let c3 = new Carro2(200,-280,45,100,'./assets/carro_03.png')
-let ee = new Estrada(2,2,10,696,'yellow')
-let ed = new Estrada(488,2,10,696,'yellow')
-let ec1 = new Estrada(246,10,10,80,'yellow')
-let ec2 = new Estrada(246,150,10,80,'yellow')
-let ec3 = new Estrada(246,290,10,80,'yellow')
-let ec4 = new Estrada(246,430,10,80,'yellow')
-let ec5 = new Estrada(246,570,10,80,'yellow')
-let ec6 = new Estrada(246,690,10,80,'yellow')
-let ec7 = new Estrada(246,810,10,80,'yellow')
+let bg = new Image();
+bg.src = './assets/pista.jpg';
 
-let t1 = new Text()
-let t2 = new Text()
-let t3 = new Text()
-let t4 = new Text()
-let t5 = new Text()
+let gameOverImg = new Image();
+gameOverImg.src = './assets/gameover.jpg';
 
-let motor = new Audio('./assets/motor.wav')
-let batida = new Audio('./assets/batida.mp3')
-motor.volume = 0.8
-motor.loop = true
-batida.volume = 0.8
+let winImg = new Image();
+winImg.src = './assets/vencer.png'
 
-let jogar = true
+let Winimg2 = new Image();
+Winimg2.src = './assets/bg_vitoria.jpg'
 
 
-document.addEventListener('keydown',(e)=>{
-    // console.log(e.key)
-    if(e.key === 'a'){
-        carro.dir -= 5
-    }else if(e.key === 'd'){
-        carro.dir += 5
+let carro = new Carro(225, 590, 45, 100, './assets/carroprincipal.png');
+let c2 = new Carro2(400, -40, 45, 100, './assets/carro_02.png');
+let c3 = new Carro2(200, -280, 45, 100, './assets/carro_03.png');
+let c4 = new Carro3(200, -280, 50, 100, './assets/carro_04.png')
+let obs = new Obs1(200, -280, 45,100, './assets/jv.png')
+
+let t1 = new Text();
+let t2 = new Text();
+let t3 = new Text();
+let t4 = new Text();
+let t5 = new Text();
+let t6 = new Text();
+
+let musica = new Audio('./assets/musica_de_fundo.mp3')
+let motor = new Audio('./assets/motor.wav');
+let batida2 = new Audio('./assets/batida2.mp3');
+let audio = new Audio('./assets/risada.mp3')
+let vencer = new Audio('./assets/aplausos.mp3')
+motor.volume = 0.8;
+motor.loop = true;
+batida2.volume = 0.8;
+musica.volume = 0.4
+
+let vencedor = false
+let pause = false
+let jogar = true;
+let gameOver = false;
+
+document.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase(); 
+
+    if (key === 'a' || e.key === 'ArrowLeft') {
+        carro.dir = -10;  
+    } else if (key === 'd' || e.key === 'ArrowRight') {
+        carro.dir = 10;   
     }
-})
-document.addEventListener('keyup', (e)=>{
-    if(e.key === 'a'){
-        carro.dir = 0
-    }else if(e.key === 'd'){
-        carro.dir = 0
-    }
-})
+});
 
-function game_over(){
-    if(carro.vida <=0){
+document.addEventListener('keyup', (e) => {
+    const key = e.key.toLowerCase(); 
+
+    if (key === 'a' || key === 'd' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        carro.dir = 0;  
+    }
+});
+
+document.addEventListener('keyup', (e)=> {
+    if (e.key === 'g'){
+        jogar = true
+        pause = false
+    }else if (e.key === 'p') {
         jogar = false
-        motor.pause()
-        // música com o jogo parado
+        pause = true
+    }
+});
+
+function game_over() {
+    if (carro.vida <= 0) {
+        jogar = false;
+        gameOver = true;
+        motor.pause();
     }
 }
 
-function pontos(){
-    if(carro.point(c2)){
-        carro.pts +=1
-    }else if(carro.point(c3)){
-        carro.pts += 1
+function pontos() {
+    if (carro.point(c2)) {
+        carro.pts += 2;
+    } else if (carro.point(c3)) {
+        carro.pts += 2;
+    }else if(carro.point(c4)){
+        carro.pts += 4;
     }
-}
 
-function colisao(){
-    if(carro.colid(c2)){
-        carro.vida -= 1
-        c2.recomeca()
-        batida.play()
-    }else if(carro.colid(c3)){
-        carro.vida -= 1
-        c3.recomeca()
-        batida.play()
+    if(carro.pts >= 10){
+        c2.velocidade = 6
+        c3.velocidade = 4
+        c4.velocidade = 10
     } 
+    if(carro.pts >= 50) {
+        c2.velocidade = 10
+        c3.velocidade = 10
+        c4.velocidade = 10
+        obs.velocidade = 15
+    }
+    if(carro.pts >= 100){
+        c2.velocidade = 15
+        c3.velocidade = 15
+        c4.velocidade = 15
+        
+    }
+    if(carro.pts >= 230){
+        vencedor = true
+    }
 }
 
-function desenha(){
-    t1.des_text('Pontos: ',360,24,'yellow','26px Times')
-    t2.des_text(carro.pts,442,24,'yellow','26px Times')
-    t3.des_text('Vida: ',40,24,'yellow','26px Times')
-    t4.des_text(carro.vida,100,24,'yellow','26px Times')
+function colisao() {
 
-    if(jogar){
-        ee.des_estrada()
-        ed.des_estrada()
-        ec1.des_estrada()
-        ec2.des_estrada()
-        ec3.des_estrada()
-        ec4.des_estrada()
-        ec5.des_estrada()
-        ec6.des_estrada()
-        ec7.des_estrada()
-        c2.des_car_img()
-        c3.des_car_img()
-        carro.des_car_img()
-    }else{
-        c1.des_carro()
-        ee.des_estrada()
-        ed.des_estrada()
-        t5.des_text('Game Over',120,340,'yellow','46px Times')
-    }  
+    if (carro.colid(c2)) {
+        carro.vida -= 1;
+        c2.recomeca();
+        batida2.play();
+    } else if (carro.colid(c3)) {
+        carro.vida -= 1;
+        c3.recomeca();
+        batida2.play();
+    } else if (carro.colid(c4)) {
+        carro.vida -= 1;
+        c4.recomeca();
+        batida2.play();
+    } else if (carro.colid(obs)) {
+        carro.vida -= 1;
+        obs.recomeca();
+        batida2.play();
+    }
 }
-function atualiza(){
-    if(jogar){
-        motor.play()
-        ec1.mov_est()
-        ec2.mov_est()
-        ec3.mov_est()
-        ec4.mov_est()
-        ec5.mov_est()
-        ec6.mov_est()
-        ec7.mov_est()
-        c2.mov_carro2()
-        c3.mov_carro2()
-        carro.mov_carro()
-        carro.anim('carro_01_')
-        pontos()
-        colisao()
-        game_over()
+
+function desenharVitoria2(){
+    des.drawImage(Winimg2,0,0,500,700);
+}
+
+function desenharVitoria(){
+    des.drawImage(winImg,0,0,500,700);
+}
+
+function desenharGameOver() {
+    des.drawImage(gameOverImg, 0, 0, 500, 700);
+}
+
+function desenha() { 
+    if (gameOver) {
+        desenharGameOver();
+        return;
     }
     
+    if (jogar){
+    des.drawImage(bg, 0, 0, 500, 700);
+    t1.des_text('Pontos: ', 350, 24, 'yellow', '26px Times');
+    t2.des_text(carro.pts, 450, 24, 'yellow', '26px Times');
+    t3.des_text('Vida: ', 10, 24, 'pink', '26px Times');
+    t4.des_text(carro.vida, 76, 24, 'pink', '26px Times');
 
+    c2.des_car_img();
+    c3.des_car_img();
+    c4.des_car_img();
+    obs.des_car_img();
+    carro.des_car_img();
 }
-function main(){
-    des.clearRect(0,0,500,700)
-    desenha()
-    atualiza()
-    requestAnimationFrame(main)
+    
 }
 
-main()
+function atualiza() {
+    if (jogar) {
+        musica.play();
+        motor.play();
+        c2.mov_carro2();
+        c3.mov_carro2();
+        c4.mov_carro3();
+        obs.mov_Obs1();
+        carro.mov_carro();
+        carro.anim('carroprincipal');
+        pontos();
+        colisao();
+        game_over();  
+    }
+}
+
+function main() {
+
+    if(jogar === false){
+        des.clearRect(0, 0, 500, 700);
+        desenha();
+        requestAnimationFrame(main);
+    } else if(jogar === true){
+        des.clearRect(0, 0, 500, 700);
+        atualiza();
+        desenha();
+        requestAnimationFrame(main);
+    }
+    
+    if(pause === true){
+        t6.des_text('Aperte "g" para despausar o jogo ', 150, 380, 'Red', '26px Impact');
+        motor.pause();
+        musica.pause();
+    } else if (pause === false){
+    }
+
+    if(gameOver === true){
+        desenharGameOver();
+        motor.pause();
+        musica.pause();
+        audio.play();
+    }
+    if(vencedor === true){
+        desenharVitoria2();
+        desenharVitoria();
+        t6.des_text('VOCE VENCEUUUU!!!!!!! ', 100, 670, 'YELLOW', '36px Impact');
+        vencer.play();
+        motor.pause();
+        musica.pause();
+        audio.pause();
+        jogar = false
+    }
+}
+
+main();
