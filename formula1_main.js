@@ -28,13 +28,15 @@ let t6 = new Text();
 
 let musica = new Audio('./assets/musica_de_fundo.mp3')
 let motor = new Audio('./assets/motor.wav');
-let batida2 = new Audio('./assets/batida2.mp3');
 let audio = new Audio('./assets/risada.mp3')
 let vencer = new Audio('./assets/aplausos.mp3')
+let batida = new Audio('./assets/batida_carro.mp3')
 motor.volume = 0.8;
 motor.loop = true;
-batida2.volume = 0.8;
+batida.volume = 0.5;
 musica.volume = 0.4
+audio.loop = false
+audio.volume = 0.2
 
 let vencedor = false
 let pause = false
@@ -113,19 +115,19 @@ function colisao() {
     if (carro.colid(c2)) {
         carro.vida -= 1;
         c2.recomeca();
-        batida2.play();
+        batida.play();
     } else if (carro.colid(c3)) {
         carro.vida -= 1;
         c3.recomeca();
-        batida2.play();
+        batida.play();
     } else if (carro.colid(c4)) {
         carro.vida -= 1;
         c4.recomeca();
-        batida2.play();
+        batida.play();
     } else if (carro.colid(obs)) {
         carro.vida -= 1;
         obs.recomeca();
-        batida2.play();
+        batida.play();
     }
 }
 
@@ -175,7 +177,7 @@ function atualiza() {
         carro.anim('carroprincipal');
         pontos();
         colisao();
-        game_over();  
+        game_over();
     }
 }
 
