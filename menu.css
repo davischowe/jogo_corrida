@@ -1,0 +1,41 @@
+body{
+    background-color: dimgray;
+}
+
+#menu{
+    background-color: black;
+    position: absolute;
+    justify-content: center;
+    height: 20vh;
+    width: 50vh;
+    left: 630px;
+    padding: 10px;
+    top: auto;
+    bottom: 400px;
+    left: center;
+    right: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: white;
+    border-radius: 30px;
+    font-size: 20px;
+}
+
+a{
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    margin: 200px;
+    font-size: 30px;
+    color: rgb(99, 72, 33);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-decoration: none;
+    font-style: oblique;
+}
+
+#span{
+    color: blanchedalmond;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    text-align: center;
+}
