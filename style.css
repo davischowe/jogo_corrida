@@ -44,11 +44,11 @@ canvas{
 }
 #sobre{
     background-color: blueviolet;
-    padding: 5px;
+    padding: 1px;
     position: absolute;
     top: 320px;
-    right: 1190px;
-    left: 160px;
+    right: 1220px;
+    left: 130px;
     bottom: 10px;
     height: fit-content;
     width: fit-content;

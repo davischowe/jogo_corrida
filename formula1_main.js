@@ -14,8 +14,9 @@ Winimg2.src = './assets/bg_vitoria.jpg'
 
 
 let carro = new Carro(225, 590, 45, 100, './assets/carroprincipal.png');
-let c2 = new Carro2(400, -40, 45, 100, './assets/carro_02.png');
-let c3 = new Carro2(200, -280, 45, 100, './assets/carro_03.png');
+
+let c2 = new Carro2(400, -40, 50, 100, './assets/carro_02.png');
+let c3 = new Carro2(200, -280, 50, 100, './assets/carro_03.png');
 let c4 = new Carro3(200, -280, 50, 100, './assets/carro_04.png')
 let obs = new Obs1(200, -280, 45,100, './assets/jv.png')
 
